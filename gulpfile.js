@@ -18,6 +18,11 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 
+var imagemin = require('gulp-imagemin');
+var imageminMozjpeg = require('imagemin-mozjpeg');
+var imageminPngquant = require('imagemin-pngquant');
+var imageminSvgo = require('imagemin-svgo');
+
 var path = require('path');
 //wordpress
 // var dirName = path.dirname(__dirname).split(path.sep)[3];
@@ -43,7 +48,7 @@ var errorHandler = {
 
 gulp.task('styles', function(){
   gulp.src('./src/sass/**/*.scss')
-    .pipe(wait(500)) //to fix Error: File to import not found or unreadable consider reducing delay
+    .pipe(wait(250)) //to fix Error: File to import not found or unreadable consider reducing delay
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: ['./src/sass']
@@ -66,17 +71,36 @@ gulp.task('scripts', function(){
     .pipe(concat('main.js'))
     .pipe(gulp.dest('./'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(uglify({
-      mangle: {
-        except: []
-      }
-    }))
+    .pipe(uglify())
     .pipe(gulp.dest('./'))
     .pipe(browserSync.stream())
 }); 
 
+gulp.task('png', () =>
+ gulp.src('src/img/**/*.png')
+    .pipe(imagemin([imageminPngquant({
+    })]))
+    .pipe(gulp.dest('img'))
+);
+
+gulp.task('jpg', () =>
+  gulp.src('src/img/**/*.jpg')
+    .pipe(imagemin([imageminMozjpeg({
+      quality: 80
+    })]))
+    .pipe(gulp.dest('img'))
+);
+
+gulp.task('svg', () =>
+  gulp.src('src/img/**/*.svg')
+    .pipe(imagemin([imageminSvgo({
+    })]))
+    .pipe(gulp.dest('img'))
+);
+
 gulp.task('default', ['browser-sync'], function(){
   gulp.watch("src/sass/**/*.scss", ['styles']);
   gulp.watch("src/js/**/*.js", ['scripts']);
+  gulp.watch("src/img/**/*.*", ['png', 'jpg', 'svg']);
   gulp.watch(["*.html"],  ['bs-reload']);  
 });
