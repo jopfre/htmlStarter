@@ -78,6 +78,7 @@ gulp.task('scripts', function(){
 
 gulp.task('png', () =>
  gulp.src('src/img/**/*.png')
+    .pipe(plumber(errorHandler))
     .pipe(imagemin([imageminPngquant({
     })]))
     .pipe(gulp.dest('img'))
@@ -85,14 +86,16 @@ gulp.task('png', () =>
 
 gulp.task('jpg', () =>
   gulp.src('src/img/**/*.jpg')
+    .pipe(plumber(errorHandler))
     .pipe(imagemin([imageminMozjpeg({
-      quality: 80
+      quality: 95
     })]))
     .pipe(gulp.dest('img'))
 );
 
 gulp.task('svg', () =>
   gulp.src('src/img/**/*.svg')
+    .pipe(plumber(errorHandler))
     .pipe(imagemin([imageminSvgo({
     })]))
     .pipe(gulp.dest('img'))
