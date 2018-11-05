@@ -101,9 +101,21 @@ gulp.task('svg', () =>
     .pipe(gulp.dest('img'))
 );
 
+gulp.task('fileinclude', function() {
+  gulp.src(['src/html/index.html'])
+    .pipe(plumber(errorHandler))
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(gulp.dest('./'));
+});
+
 gulp.task('default', ['browser-sync'], function(){
   gulp.watch("src/sass/**/*.scss", ['styles']);
   gulp.watch("src/js/**/*.js", ['scripts']);
   gulp.watch("src/img/**/*.*", ['png', 'jpg', 'svg']);
+  // gulp.watch(["src/html/*.*"],  ['fileinclude', 'bs-reload']);  //file include
   gulp.watch(["*.html"],  ['bs-reload']);  
+
 });
