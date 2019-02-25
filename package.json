@@ -9,21 +9,24 @@
   "author": "jopfre",
   "license": "",
   "devDependencies": {
+    "autoprefixer": "latest",
     "browser-sync": "latest",
-    "gulp": "latest",
+    "cssnano": "latest",
     "gulp-autoprefixer": "latest",
     "gulp-concat": "latest",
     "gulp-jshint": "latest",
     "gulp-pixrem": "latest",
     "gulp-plumber": "latest",
-    "gulp-postcss": "^6.3.0",
+    "gulp-postcss": "latest",
     "gulp-rename": "latest",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.4.1",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "latest",
     "gulp-uglify": "latest",
-    "gulp-wait": "0.0.2",
-    "cssnano": "latest",
-    "jshint": "latest",
-    "autoprefixer": "latest"
+    "gulp-wait": "latest",
+    "gulp-imagemin": "latest",
+    "imagemin-mozjpeg": "latest",
+    "imagemin-pngquant": "latest",
+    "imagemin-svg": "latest",
+    "jshint": "latest"
   }
 }
